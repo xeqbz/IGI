@@ -22,10 +22,20 @@ def is_command(value):
             value = input("Invalid input, please enter a valid value: ")
 
 
-def number_of_words():
+def decorator_function(func):
+    """ Decorator function 'number_of_words """
+    def wrapper(*args):
+        result = func(*args)
+        print(f"\nNumber of words in string: ", end='')
+        return result
+    return wrapper
+
+
+@decorator_function
+def number_of_words(string):
     """ Returns number of words """
-    words = main_string.split(" ")
-    return len(words)
+    num = string.split(" ")
+    return len(num)
 
 
 def find_odd_words():
@@ -38,6 +48,7 @@ def find_odd_words():
 
 def output_odd_words(*values):
     """ Output words with odd number of letters """
+    print("Words with odd number of letters: ")
     print(*values, sep=" ")
 
 
@@ -91,7 +102,7 @@ def program():
         menu()
         command = is_command(input("\nEnter a value: "))
         if command == 1:
-            print(f"\nNumber of words: {number_of_words()}\n")
+            print(number_of_words(main_string))
             output_odd_words(*find_odd_words())
             output_longest_i_word(find_longest_i_word())
             output_repeated_words(find_repeated_words())

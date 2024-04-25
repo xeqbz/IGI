@@ -1,4 +1,4 @@
-# Program: Organize a loop that takes integers and calculates the arithmetic mean of even numbers. End - input 1
+# Program: Organize a loop that takes integers and find the minimum. End - input 1
 # Version: 1.0
 # Author: Tsaruk V.
 # Date: 01.04.2024

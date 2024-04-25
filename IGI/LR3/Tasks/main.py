@@ -1,10 +1,10 @@
-import Task3
-import Task4
-import Task5
 from errors import is_command
 from menu import menu
 import Task1
 import Task2
+import Task3
+import Task4
+import Task5
 
 
 def program():

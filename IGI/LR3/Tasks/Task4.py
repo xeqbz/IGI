@@ -65,9 +65,8 @@ def output_longest_i_word(word):
 
 def find_repeated_words():
     """ Finds repeated words """
-    string = main_string.replace(",", "")
+    string = main_string.replace(",", "")[:]
     string = string.replace("-", " ")
-    string = string.lower()
     string = string.split(" ")
     count = {}
     for word in string:

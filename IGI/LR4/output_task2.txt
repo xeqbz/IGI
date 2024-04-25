@@ -1,0 +1,20 @@
+Number of sentences in the text: 17;
+	-declarative sentences: 12;
+	-incentive sentences: 2;
+	-interrogative sentences: 3;
+Average sentence length in chars: 36.55555555555556;
+Average word length in chars: 4.210884353741497;
+Number of emoticons: 3
+All words with length less than 5:are,as,came,if,in,yes,hold,firm,big,mike,you,neck,or,was,have,fred,just,over,my,very,d,t,with,her,time,luck,son,boy,made,such,day,so,she,no,on,that,last,be,good,how,thin,he,any,and,to,mrs,they,didn,much,had,four,mr,the,say,a,of,were,did,alex,man
+Text with highlighted pairs:
+-----
+My day. Goodbye! So? How are you? Yes! Good luck. If?
+;---------[[[[[[[[ ;-- ) [ :) :(
+_?aL?_ex _?mI?_ke a_?lI?_ce fr_?eD?_
+Mr. and Mrs. Dursley, of number four, Privet Drive, were proud to say that they were perfectly normal, thank you very much. They were the last people you’d expect to be involved in anything strange or mysterious, because they just didn’t hold with such nonsense.
+Mr. Dursley was the director of a firm called Grunnings, which made drills. He was a big, beefy man with hardly any neck, although he did have a very large mustache. Mrs. Dursley was thin and blonde and had nearly twice the usual amount of neck, which came in very useful as she spent so much of her time craning over garden fences, spying on the neighbors. The Dursleys had a small son called Dudley and in their opinion there was no finer boy anywhere.
+-----
+Number of even letters words: 82
+Even letters words:my,so,good,luck,if,alex,mike,fred,mr,of,number,four,privet,were,to,that,they,were,normal,very,much,they,were,last,people,expect,to,be,involved,in,anything,or,mysterious,they,just,didn,hold,with,such,nonsense,mr,director,of,firm,called,made,drills,he,with,hardly,neck,although,he,have,very,mustache,thin,blonde,nearly,amount,of,neck,came,in,very,useful,as,so,much,of,time,over,garden,fences,spying,on,dursleys,called,dudley,in,no,anywhere
+Shortest word starting with a: as
+Repeated words:so,you,mr,and,mrs,dursley,of,were,to,they,very,much,the,in,with,was,a,called,which,he,neck,had

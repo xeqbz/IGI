@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}Промокоды{% endblock %}
+
+{% block content %}
+    <h1>Промокоды</h1>
+    <a href="{% url 'promo_code_new' %}">Добавить новый промокод</a>
+
+    <h2>Активные промокоды</h2>
+    <ul>
+        {% for promo_code in active_promo_codes %}
+            <li>
+                <strong>Код:</strong> {{ promo_code.code }}<br>
+                <strong>Описание:</strong> {{ promo_code.description }}<br>
+                <strong>Начало действия:</strong> {{ promo_code.start_date }}<br>
+                <strong>Конец действия:</strong> {{ promo_code.end_date }}<br>
+                <a href="{% url 'promo_code_edit' promo_code.pk %}">Редактировать</a>
+                <a href="{% url 'promo_code_delete' promo_code.pk %}">Удалить</a>
+            </li>
+        {% empty %}
+            <li>На данный момент активных промокодов нет.</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Истекшие промокоды</h2>
+    <ul>
+        {% for promo_code in expired_promo_codes %}
+            <li>
+                <strong>Код:</strong> {{ promo_code.code }}<br>
+                <strong>Описание:</strong> {{ promo_code.description }}<br>
+                <strong>Начало действия:</strong> {{ promo_code.start_date }}<br>
+                <strong>Конец действия:</strong> {{ promo_code.end_date }}<br>
+                <a href="{% url 'promo_code_edit' promo_code.pk %}">Редактировать</a>
+                <a href="{% url 'promo_code_delete' promo_code.pk %}">Удалить</a>
+            </li>
+        {% empty %}
+            <li>На данный момент нет истекших промокодов.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

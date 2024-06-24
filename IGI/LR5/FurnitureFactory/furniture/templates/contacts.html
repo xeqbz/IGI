@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Наши сотрудники{% endblock %}
+
+{% block content %}
+    <h1>Наши сотрудники</h1>
+    {% if employees %}
+        <ul>
+            {% for employee in employees %}
+                <li>
+                    <h3>{{ employee.first_name }} {{ employee.last_name }}</h3>
+                    <p><strong>Должность:</strong> {{ employee.position }}</p>
+                    <p><strong>Контактная информация:</strong> {{ employee.contact_info }}</p>
+                    <p><strong>Email:</strong> {{ employee.email }}</p>
+                    {% if employee.photo %}
+                        <img src="{{ employee.photo.url }}" alt="{{ employee.first_name }} {{ employee.last_name }}">
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>На данный момент информация о сотрудниках отсутствует.</p>
+    {% endif %}
+{% endblock %}

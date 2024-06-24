@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Новости{% endblock %}
+
+{% block content %}
+    <h1>Новости</h1>
+    {% if news_list %}
+        <ul>
+            {% for news in news_list %}
+                <li>
+                    <h2>{{ news.title }}</h2>
+                    <p>{{ news.content }}</p>
+                    <p>Опубликовано: {{ news.pub_date }}</p>
+                    {% if news.image %}
+                        <img src="{{ news.image.url }}" alt="{{ news.title }}">
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Новости отсутствуют.</p>
+    {% endif %}
+{% endblock %}

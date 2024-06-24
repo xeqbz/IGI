@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мебельная фабрика</title>
+</head>
+<body>
+    <header>
+        <nav>
+            {% if user.is_authenticated %}
+            <p>Welcome, {{ user.username }}!</p>
+            {% if user.is_superuser %}
+                    <a href="{% url 'superuser_profile' %}">Superuser Profile</a>
+            {% elif user.is_staff %}
+                    <a href="{% url 'employee_profile' %}">Employee Profile</a>
+            {% else %}
+                    <a href="{% url 'client_profile' %}">Profile</a>
+            {% endif %}
+            <form action="{% url 'logout' %}" method="post">
+                {% csrf_token %}
+                <button type="submit">Выход</button>
+            </form>
+        {% else %}
+            <a href="{% url 'login' %}">Login</a>
+            <a href="{% url 'signup' %}">Sign Up</a>
+        {% endif %}
+            <ul>
+                <li><a href="/about/">О компании</a></li>
+                <li><a href="/news/">Новости</a></li>
+                <li><a href="/dictionary/">Словарь терминов и понятий</a></li>
+                <li><a href="/contacts/">Контакты</a></li>
+                <li><a href="/privacy_policy/">Политика конфиденциальности</a></li>
+                <li><a href="/vacancies/">Вакансии</a></li>
+                <li><a href="/reviews/">Отзывы</a></li>
+                <li><a href="/promo_codes/">Промокоды и купоны</a></li>
+                <li><a href="/products_list/">Список продуктов</a></li>
+                <!-- Другие ссылки на разделы сайта -->
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Welcome to Our Site</h1>
+        <h2>Latest News</h2>
+        <article>
+            <h3>{{ latest_news.title }}</h3>
+            <p>{{ latest_news.content }}</p>
+            <p>{% if latest_news.image %}
+                <img src="{{ latest_news.image.url }}" alt="{{ latest_news.title }}">
+            {% endif %}</p>
+            <p>Published on: {{ latest_news.pub_date }}</p>
+        </article>
+    </main>
+
+    <footer>
+        <p>Here's a random cat fact for you: {{ cat_fact }}</p>
+        <p>Here's a random joke for you: {{ random_activity }}</p>
+    </footer>
+</body>
+</html>

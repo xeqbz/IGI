@@ -7,7 +7,7 @@ from django.db.models import Count, Sum, Max, Min
 from matplotlib import pyplot as plt
 from .models import Employee, CompanyInfo, Vacancy, PromoCode, Review, ProductModel, ProductType, Product, Sale, Client, News, Faq
 from django.contrib.auth import login
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.urls import reverse, reverse_lazy, path
 from .forms import ReviewForm, ClientForm, PromoCodeForm
@@ -64,42 +64,52 @@ def vacancies(request):
       #  'expired_promo_codes': expired_promo_codes,
     #})
 
-class SuperuserRequiredMixin(UserPassesTestMixin):
-    def test_func(self):
-        return self.request.user.is_superuser
+def promo_codes_list(request):
+    current_date = timezone.now().date()
+    active_promo_codes = PromoCode.objects.filter(start_date__lte=current_date, end_date__gte=current_date)
+    expired_promo_codes = PromoCode.objects.filter(end_date__lt=current_date)
+
+    return render(request, 'promo_codes_list.html', {
+        'active_promo_codes': active_promo_codes,
+        'expired_promo_codes': expired_promo_codes,
+    })
 
 
-class PromoCodeListView(SuperuserRequiredMixin, ListView):
-    model = PromoCode
-    template_name = 'promo_codes_list.html'
-    context_object_name = 'promo_codes'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        current_date = timezone.now().date()
-        context['active_promo_codes'] = PromoCode.objects.filter(start_date__lte=current_date, end_date__gte=current_date)
-        context['expired_promo_codes'] = PromoCode.objects.filter(end_date__lt=current_date)
-        return context
-
-
-class PromoCodeCreateView(SuperuserRequiredMixin, CreateView):
-    model = PromoCode
-    form_class = PromoCodeForm
-    template_name = 'promo_code_form.html'
-    success_url = reverse_lazy('promo_codes')
+@user_passes_test(lambda u: u.is_superuser)
+@login_required
+def promo_code_create(request):
+    if request.method == 'POST':
+        form = PromoCodeForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('promo_codes_list')
+    else:
+        form = PromoCodeForm()
+    return render(request, 'promo_code_form.html', {'form': form})
 
 
-class PromoCodeUpdateView(SuperuserRequiredMixin, UpdateView):
-    model = PromoCode
-    form_class = PromoCodeForm
-    template_name = 'promo_code_form.html'
-    success_url = reverse_lazy('promo_codes')
+@user_passes_test(lambda u: u.is_superuser)
+@login_required
+def promo_code_update(request, pk):
+    promo_code = get_object_or_404(PromoCode, pk=pk)
+    if request.method == 'POST':
+        form = PromoCodeForm(request.POST, instance=promo_code)
+        if form.is_valid():
+            form.save()
+            return redirect('promo_codes_list')
+    else:
+        form = PromoCodeForm(instance=promo_code)
+    return render(request, 'promo_code_form.html', {'form': form})
 
 
-class PromoCodeDeleteView(SuperuserRequiredMixin, DeleteView):
-    model = PromoCode
-    template_name = 'promo_code_confirm_delete.html'
-    success_url = reverse_lazy('promo_codes')
+@user_passes_test(lambda u: u.is_superuser)
+@login_required
+def promo_code_delete(request, pk):
+    promo_code = get_object_or_404(PromoCode, pk=pk)
+    if request.method == 'POST':
+        promo_code.delete()
+        return redirect('promo_codes_list')
+    return render(request, 'promo_code_delete.html', {'promo_code': promo_code})
 
 
 def signup(request):

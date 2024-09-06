@@ -5,12 +5,7 @@ from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
 from django.conf import settings
 from django.conf.urls.static import static
-from .views import (
-    PromoCodeListView,
-    PromoCodeCreateView,
-    PromoCodeUpdateView,
-    PromoCodeDeleteView
-)
+from .views import promo_codes_list, promo_code_create, promo_code_update, promo_code_delete
 
 urlpatterns = [
     path('furniture/', views.index, name='home'),
@@ -32,9 +27,9 @@ urlpatterns = [
     path('employee_profile/', views.employee_profile, name='employee_profile'),
     path('client_form/', views.client_form, name='client_form'),
     path('client_profile/', views.client_profile, name='client_profile'),
-    path('promo_codes/', PromoCodeListView.as_view(), name='promo_codes'),
-    path('promo_codes/new/', PromoCodeCreateView.as_view(), name='promo_code_new'),
-    path('promo_codes/<int:pk>/edit/', PromoCodeUpdateView.as_view(), name='promo_code_edit'),
-    path('promo_codes/<int:pk>/delete/', PromoCodeDeleteView.as_view(), name='promo_code_delete'),
+    path('promo_codes_list/', promo_codes_list, name='promo_codes_list'),
+    path('promo_codes/new/', promo_code_create, name='promo_code_create'),
+    path('promo_codes/<int:pk>/edit/', promo_code_update, name='promo_code_update'),
+    path('promo_codes/<int:pk>/delete/', promo_code_delete, name='promo_code_delete'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

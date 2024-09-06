@@ -1,3 +1,5 @@
+from django.utils import timezone
+
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -144,6 +146,9 @@ class PromoCode(models.Model):
 
     def __str__(self):
         return self.code
+
+    def is_active(self):
+        return self.start_date <= timezone.now().date() <= self.end_date
 
 
 class Review(models.Model):

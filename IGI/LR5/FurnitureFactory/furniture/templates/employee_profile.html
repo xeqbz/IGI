@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Profile</title>
+</head>
+<body>
+    <h1>Employee Profile</h1>
+    <p>Welcome, {{ user.username }}!</p>
+
+    <h2>Sales List</h2>
+    <ul>
+        {% for sale in sales %}
+            <li>{{ sale }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Customers List</h2>
+    <ul>
+        {% for customer in clients %}
+            <li>{{ customer.name }} - {{ customer.city }}</li>
+        {% endfor %}
+    </ul>
+
+</body>
+</html>

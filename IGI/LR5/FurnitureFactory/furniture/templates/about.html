@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}О компании{% endblock %}
+
+{% block content %}
+    <h1>О компании</h1>
+    {% if company_info %}
+        <p>{{ company_info.description }}</p>
+    {% else %}
+        <p>Информация о компании отсутствует.</p>
+    {% endif %}
+{% endblock %}

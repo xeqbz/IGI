@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}Часто задаваемые вопросы{% endblock %}
+
+{% block content %}
+    <h1>Часто задаваемые вопросы</h1>
+    {% if faq_list %}
+        <ul>
+            {% for faq in faq_list %}
+                <li>
+                    <h3>{{ faq.question }}</h3>
+                    <p>{{ faq.answer }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>На данный момент часто задаваемые вопросы отсутствуют.</p>
+    {% endif %}
+{% endblock %}

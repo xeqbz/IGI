@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}О компании{% endblock %}
+
+{% block content %}
+    <h1>О компании</h1>
+    <img src="{{ company_info.logo.url }}" alt="Логотип компании" width="400" height="400">
+    <h2>Информация о компании</h2>
+<p><strong>{{ company_info.name }}</strong></p>
+    <h2>Видеопрезентация</h2>
+    <video width="640" height="360" controls>
+        <source src="{{ company_info.video.url }}" type="video/mp4">
+        Ваш браузер не поддерживает видео.
+    </video>
+    <h2>История компании</h2>
+    <p>{{ company_info.history }}</p>
+    <h2>Реквезиты</h2>
+        <p>Адрес: {{ company_info.address }}</p>
+        <p>Телефон: {{ company_info.phone }}</p>
+        <p>Email: {{ company_info.email }}</p>
+    <h2>Сертификат</h2>
+    <img src=" {{company_info.certificate.url }}" alt="Сертификат" width="400" height="400">
+{% endblock %}

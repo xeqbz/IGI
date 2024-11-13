@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %} Шкаф {% endblock %}
+
+{% block content %}
+{% load static %}
+    <h1>Корзина заказов</h1>
+
+    <!-- Товар 1 -->
+    <div>
+        <h2>Стул</h2>
+        <p>Цена: 120 руб.</p>
+        <p>Количество:
+            <button type="button">-</button>
+            <span>1</span>
+            <button type="button">+</button>
+        </p>
+        <button type="button">Удалить из корзины</button>
+    </div>
+
+    <hr>
+
+    <!-- Товар 2 -->
+    <div>
+        <h2>Стол</h2>
+        <p>Цена: 200 руб.</p>
+        <p>Количество:
+            <button type="button">-</button>
+            <span>1</span>
+            <button type="button">+</button>
+        </p>
+        <button type="button">Удалить из корзины</button>
+    </div>
+
+    <hr>
+
+    <!-- Товар 3 -->
+    <div>
+        <h2>Шкаф</h2>
+        <p>Цена: 350 руб.</p>
+        <p>Количество:
+            <button type="button">-</button>
+            <span>1</span>
+            <button type="button">+</button>
+        </p>
+        <button type="button">Удалить из корзины</button>
+    </div>
+
+    <hr>
+
+    <!-- Общая стоимость -->
+    <h3>Общая стоимость: 670 руб.</h3>
+
+    <!-- Кнопка для оплаты -->
+    <a href="payment.html">
+        <button type="button">Оплатить</button>
+    </a>
+{% endblock %}

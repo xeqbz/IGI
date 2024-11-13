@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product List</title>
+</head>
+<body>
+    <h1>Product List</h1>
+
+    <!-- Форма для фильтрации и сортировки -->
+    <form method="get" action="">
+        <!-- Фильтры -->
+        <label for="product_type">Product Type:</label>
+        <select name="product_type" id="product_type">
+            <option value="">All</option>
+            {% for product_type in product_types %}
+                <option value="{{ product_type.id }}">{{ product_type.name }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="product_model">Product Model:</label>
+        <select name="product_model" id="product_model">
+            <option value="">All</option>
+            {% for product_model in product_models %}
+                <option value="{{ product_model.id }}">{{ product_model.name }}</option>
+            {% endfor %}
+        </select>
+
+        <!-- Выбор сортировки -->
+        <label for="sort">Sort by:</label>
+        <select name="sort" id="sort">
+            <option value="">Default</option>
+            <option value="price_asc">Price: Low to High</option>
+            <option value="price_desc">Price: High to Low</option>
+        </select>
+
+        <button type="submit">Filter</button>
+    </form>
+
+   <!-- Список продуктов -->
+    <ul>
+        {% for product in products %}
+            <li>
+                {{ product.name }} - {{ product.price }}
+                {% if user.is_authenticated %}
+                    <form action="" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="product_code" value="{{ product.product_code }}">
+                        <button type="submit">Buy</button>
+                    </form>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Отзывы{% endblock %}
+
+{% block content %}
+    <h1>Отзывы</h1>
+
+    <!-- Список отзывов -->
+    <ul>
+        {% for review in reviews %}
+            <li>
+                <strong>{{ review.user.username }}</strong> - Оценка: {{ review.rating }}<br>
+                {{ review.text }}<br>
+                <em>{{ review.date }}</em>
+            </li>
+        {% empty %}
+            <li>Пока нет отзывов.</li>
+        {% endfor %}
+    </ul>
+     {% if user.is_authenticated %}
+        <h2>Добавить отзыв</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <button type="submit">Отправить</button>
+        </form>
+    {% else %}
+        <p>Чтобы добавить отзыв, <a href="{% url 'login' %}">войдите</a> или <a href="{% url 'signup' %}">зарегистрируйтесь</a>.</p>
+    {% endif %}
+{% endblock %}
+

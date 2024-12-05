@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}О компании{% endblock %}
+
+{% block content %}
+    <h1>О компании</h1>
+
+    <!-- Логотип компании с трансформацией -->
+    <img src="{{ company_info.logo.url }}" alt="Логотип компании" class="company-logo">
+
+    <h2>Информация о компании</h2>
+    <p><strong>{{ company_info.name }}</strong></p>
+
+    <h2>Видеопрезентация</h2>
+    <video class="company-video" width="640" height="360" controls>
+        <source src="{{ company_info.video.url }}" type="video/mp4">
+        Ваш браузер не поддерживает видео.
+    </video>
+
+    <h2>История компании</h2>
+    <ul class="company-history">
+        <li>{{ company_info.history }}</li>
+    </ul>
+
+    <h2>Реквизиты</h2>
+    <div class="company-details">
+        <p><strong>Адрес:</strong> {{ company_info.address }}</p>
+        <p><strong>Телефон:</strong> {{ company_info.phone }}</p>
+        <p><strong>Email:</strong> {{ company_info.email }}</p>
+    </div>
+
+    <div class="certificate-container" id="about_company">
+    <h1 class="h1-certificate">Свидетельство о качестве продукции</h1>
+
+    <div class="certificate-content">
+        <p>Настоящим удостоверяется, что <strong class="certificate">Онлайн-магазин "Furniroom"</strong>
+            успешно прошел все необходимые проверки и обладает
+            всеми необходимыми ресурсами, квалифицированным персоналом и оборудованием для обеспечения
+            высокого качества продуктов на территории Республики Беларусь.</p>
+
+
+
+        <p>Компания имеет лицензию №987654321 от 16 октября 2024 года и выполняет работы в соответствии с
+            действующими стандартами и нормами охраны труда и техники безопасности.</p>
+        <p>Срок действия данного свидетельства: с 16 октября 2024 года по 01 января 2025 года.</p>
+    </div>
+    <div class="certificate-signatures">
+        <div class="certificate-signature-line">
+            <div>
+                ___________________________<br>
+                <em>Генеральный директор</em><br>
+               Царук В.А.
+            </div>
+        </div>
+    </div>
+
+    <footer class="certificate">
+        <p> 2024 - Ассоциация контроля нормы торговли.</p>
+    </footer>
+</div>
+
+{% endblock %}

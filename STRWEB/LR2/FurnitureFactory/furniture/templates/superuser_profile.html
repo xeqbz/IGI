@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>Superuser Profile</title>
+</head>
+<body>
+    <h1>Superuser Profile</h1>
+    <a href="{% url 'home' %}">Back to Home</a>
+
+    <h2>Price List</h2>
+    <ul>
+        {% for product_type in product_types %}
+            <li>{{ product_type.name }}</li>
+            <ul>
+                {% for product in product_type.product_set.all %}
+                    <li>{{ product.name }}: ${{ product.price }}</li>
+                {% endfor %}
+            </ul>
+        {% endfor %}
+    </ul>
+
+    <h2>Customer List Grouped by Cities</h2>
+    <ul>
+        {% for customer in clients_by_city %}
+            <li>{{ customer.city }}: {{ customer.total }} customers</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Most Popular Products</h2>
+    <ul>
+        {% for product in most_popular_products %}
+            <li>{{ product.name }} - Total Sales: {{ product.total_sales }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Unpopular Products</h2>
+    <ul>
+        {% for product in least_popular_products %}
+            <li>{{ product.name }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Monthly Sales</h2>
+    <ul>
+        {% for item in monthly_sales %}
+            <li>{{ item.product_type.name }}: {{ item.total_sales }}$</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Yearly Revenue Report for {{ current_year }}</h2>
+    <p>Total Revenue: {{ total_revenue }}$</p>
+
+    <h2>Sales Report</h2>
+    <img src="{% static 'graphs/sales_by_product.png' %}" alt="Sales Chart">
+
+</body>
+</html>

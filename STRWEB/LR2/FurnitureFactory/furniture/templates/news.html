@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}Новости{% endblock %}
+
+{% block content %}
+    <h1>Новости</h1>
+    {% if news_list %}
+        <div class="news-list">
+            {% for news in news_list %}
+                <div class="news-item">
+                    <h2><a href="{% url 'news_detail' news.id %}">{{ news.title }}</a></h2>
+
+                    <!-- Краткое содержание с использованием overflow -->
+                    <div class="news-summary">
+                        <p>{{ news.content|truncatewords:20 }}</p> <!-- Краткое содержание (первые 20 слов) -->
+                    </div>
+
+                    <!-- Картинка новости -->
+                    {% if news.image %}
+                        <img src="{{ news.image.url }}" alt="{{ news.title }}" class="news-image">
+                    {% endif %}
+
+                    <!-- Кнопка "Читать далее" -->
+                    <a href="{% url 'news_detail' news.id %}" class="read-more-btn">Читать далее</a>
+
+                    <p class="news-date">Опубликовано: {{ news.pub_date }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>Новости отсутствуют.</p>
+    {% endif %}
+{% endblock %}
+

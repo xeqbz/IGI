@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %} Стул {% endblock %}
+
+{% block content %}
+{% load static %}
+    <div>
+        <img src="{% static 'images/chair.jpg' %}" alt="Изображение стула" width="400">
+    </div>
+
+    <div>
+        <p><strong>Цена:</strong> 120 руб</p>
+        <p><strong>Описание:</strong> Эргономичный стул с мягкой спинкой и регулируемой высотой. Идеально подходит для дома и офиса.</p>
+    </div>
+
+    <div>
+        <button type="button">Добавить в корзину</button>
+    </div>
+{% endblock %}

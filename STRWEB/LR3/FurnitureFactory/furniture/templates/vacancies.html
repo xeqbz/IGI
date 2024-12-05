@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Вакансии{% endblock %}
+
+{% block content %}
+    <h1>Вакансии</h1>
+    <ul>
+        {% if vacancies %}
+        <ul>
+            {% for vac in vacancies %}
+                <li class="vacancy-item">
+                    <div class="vacancy-header">
+                        <h2 class="vacancy-title">{{ vac.title }}</h2>
+                        <p class="vacancy-posted-date"><strong>Дата размещения:</strong> {{ vac.posted_date }}</p>
+                    </div>
+                    <p class="vacancy-description">{{ vac.description }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>На данный момент вакансии отсутствуют.</p>
+        {% endif %}
+    </ul>
+{% endblock %}
+

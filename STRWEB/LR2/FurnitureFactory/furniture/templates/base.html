@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мебельная фабрика</title>
+    {% load static %}
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+    <link rel="stylesheet" href="{%static 'furniture/style.css' %}">
+</head>
+<body>
+    <header>
+<div class="container">
+    <div class="sidebar">
+            <img src="{% static 'images/logo.png' %}" alt="Logo">
+            {% if user.is_authenticated %}
+            <p>Welcome, {{ user.username }}!</p>
+            {% if user.is_superuser %}
+                    <a href="{% url 'superuser_profile' %}">Superuser Profile</a>
+            {% elif user.is_staff %}
+                    <a href="{% url 'employee_profile' %}">Employee Profile</a>
+            {% else %}
+                    <a href="{% url 'client_profile' %}">Profile</a>
+            {% endif %}
+            <a href="/cart/">Корзина</a>
+            <form action="{% url 'logout' %}" method="post">
+                {% csrf_token %}
+                <button type="submit">Выход</button>
+            </form>
+        {% else %}
+            <a href="{% url 'login' %}">Login</a>
+            <a href="{% url 'signup' %}">Sign Up</a>
+        {% endif %}
+            <ul class="sidebar-nav">
+                <li><a href="{% url 'home' %}">Главная</a></li>
+                <li><a href="/news/">Новости</a></li>
+                <li><a href="/dictionary/">Словарь терминов и понятий</a></li>
+                <li><a href="/contacts/">Контакты</a></li>
+                <li><a href="/privacy_policy/">Политика конфиденциальности</a></li>
+                <li><a href="/vacancies/">Вакансии</a></li>
+                <li><a href="/reviews/">Отзывы</a></li>
+                <li><a href="/promo_codes_list/">Промокоды и купоны</a></li>
+                <li><a href="/products_list/">Список продуктов</a></li>
+                <li><a href="/task/">Задание</a></li>
+                <!-- Другие ссылки на разделы сайта -->
+            </ul>
+    </div>
+</div>
+</header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    <footer>
+    <div class="footer-content">
+        <div class="partners">
+            <h4>Наши партнеры</h4>
+            {% for company in companies %}
+            <div class="partner-block">
+                <img src="{{ company.logo.url }}" alt="{{ company.name }}" class="partner-logo">
+                <a class="partner-name" href="{{ company.website }}" target="_blank">{{ company.name }}</a>
+            </div>
+            {% endfor %}
+        </div>
+        <img src="{% static 'images/banner1.jpg' %}" alt="Banner" width="600" height="300" class="footer-banner">
+    </div>
+</footer>
+</body>
+</html>

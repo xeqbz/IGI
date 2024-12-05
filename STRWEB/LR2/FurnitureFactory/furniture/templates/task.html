@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Описание страницы">
+    {% load static %}
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+    <title>Задание</title>
+</head>
+<body>
+    <header>
+        <h1>Добро пожаловать</h1>
+        <nav>
+            <ul>
+                <li><a href="#section1">Раздел 1</a></li>
+                <li><a href="#section2">Раздел 2</a></li>
+                <li><a href="#download" download>Скачать документ</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="section1">
+            <h2>Семантическая верстка</h2>
+            <p>Это пример <strong>семантической</strong> <em>верстки</em>.</p>
+            <blockquote itemscope itemtype="https://schema.org/CreativeWork">
+                <p itemprop="text"> Через 20 лет вы будете больше разочарованы теми вещами, которые вы не делали, чем теми, которые вы сделали. Так отчальте от тихой пристани. Почувствуйте попутный ветер в вашем парусе. Двигайтесь вперед, действуйте, открывайте!</p>
+                <cite itemprop="author">Марк Твен</cite>
+            </blockquote>
+            <figure>
+                <img src="{% static 'images/logo.png' %}" alt="Пример изображения" width="200" height="200">
+                <figcaption>Подпись к изображению</figcaption>
+            </figure>
+        </section>
+
+        <section id="section2">
+            <h2>Таблица с данными</h2>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Заголовок 1</th>
+                        <th>Заголовок 2</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Данные 1</td>
+                        <td>Данные 2</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Объединенные ячейки</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>Форма обратной связи</h2>
+            <form action=# method="POST">
+                {% csrf_token %}
+                <label for="name">Имя:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="dropdown">Выберите вариант:</label>
+                <select id="dropdown" name="options">
+                    <option value="1">Вариант 1</option>
+                    <option value="2">Вариант 2</option>
+                </select>
+
+                <button type="submit">Отправить</button>
+            </form>
+        </section>
+
+        <section>
+            <h2>Аудио и видео</h2>
+            <audio controls>
+                <source src="{% static 'audio/ost-smeshariki--zastavka.mp3' %}" type="audio/mpeg">
+                Ваш браузер не поддерживает аудио.
+            </audio>
+
+            <video controls width="600">
+                <source src="{% static 'video/_Обзор_фабрики_за_минуту.mp4' %}" type="video/mp4">
+                Ваш браузер не поддерживает видео.
+            </video>
+        </section>
+
+        <section>
+            <h2>Пример текста в виде четверостишия</h2>
+            <pre>
+                Это пример текста
+                в виде четверостишия
+                с фиксированным
+                и потенциальным переводом строки.
+            </pre>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024</p>
+    </footer>
+
+</body>
+</html>

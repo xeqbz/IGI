@@ -3,16 +3,44 @@
 {% block title %}Новости{% endblock %}
 
 {% block content %}
-    <h1>Новости</h1>
+{% load static %}
+    <h1 class="news">Новости</h1>
+
+    <!-- Панель управления стилями -->
+    <div class="style-toggle">
+        <label>
+            <input type="checkbox" id="customize-toggle">
+            Включить настройку стилей для страницы
+        </label>
+    </div>
+
+    <div id="customize-panel" class="customize-panel">
+        <h3>Настройка стиля</h3>
+        <label>
+            Размер шрифта:
+            <input type="range" id="font-size-slider" min="10" max="40" value="16">
+        </label>
+        <br><br>
+        <label>
+            Цвет текста:
+            <input type="color" id="text-color-picker" value="#000000">
+        </label>
+        <br><br>
+        <label>
+            Цвет фона:
+            <input type="color" id="background-color-picker" value="#ffffff">
+        </label>
+    </div>
+
     {% if news_list %}
         <div class="news-list">
             {% for news in news_list %}
                 <div class="news-item">
-                    <h2><a href="{% url 'news_detail' news.id %}">{{ news.title }}</a></h2>
+                    <h2><a class="news" href="{% url 'news_detail' news.id %}">{{ news.title }}</a></h2>
 
                     <!-- Краткое содержание с использованием overflow -->
                     <div class="news-summary">
-                        <p>{{ news.content|truncatewords:20 }}</p> <!-- Краткое содержание (первые 20 слов) -->
+                        <p class="news">{{ news.content|truncatewords:20 }}</p> <!-- Краткое содержание (первые 20 слов) -->
                     </div>
 
                     <!-- Картинка новости -->
@@ -21,14 +49,17 @@
                     {% endif %}
 
                     <!-- Кнопка "Читать далее" -->
-                    <a href="{% url 'news_detail' news.id %}" class="read-more-btn">Читать далее</a>
+                    <a href="{% url 'news_detail' news.id %}" class="read-more-btn news">Читать далее</a>
 
-                    <p class="news-date">Опубликовано: {{ news.pub_date }}</p>
+                    <p class="news-date news">Опубликовано: {{ news.pub_date }}</p>
                 </div>
             {% endfor %}
         </div>
     {% else %}
         <p>Новости отсутствуют.</p>
     {% endif %}
+{% endblock %}
+{% block scripts %}
+<script src="{% static 'js/styleEdit.js' %}"></script>
 {% endblock %}
 

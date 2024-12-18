@@ -14,6 +14,7 @@ urlpatterns = [
     path('news/<int:news_id>/', views.news_detail, name='news_detail'),
     path('dictionary/', views.dictionary),
     path('contacts/', views.contacts),
+    path('add_employee/', views.add_employee, name='add_employee'),
     re_path(r'^privacy_policy/$', views.privacy_policy),
     path('vacancies/', views.vacancies),
     #path('promo_codes/', views.promo_codes),
@@ -38,6 +39,7 @@ urlpatterns = [
     path('cart/', views.cart),
     path('cart/payment.html', views.payment),
     path('task/', views.task),
-    path('animation/',views.animation)
+    path('animation/',views.animation),
+    path('taskjs/', views.taskjs)
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

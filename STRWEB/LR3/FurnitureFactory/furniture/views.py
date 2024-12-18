@@ -3,7 +3,10 @@ from datetime import datetime, timedelta, date
 import django.db.models
 import numpy as np
 from django.conf import settings
-from django.db.models import Count, Sum, Max, Min
+from django.core.paginator import Paginator, EmptyPage
+from django.db.models import Count, Sum, Max, Min, Q
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 from matplotlib import pyplot as plt
 from .models import Employee, CompanyInfo, Vacancy, PromoCode, Review, ProductModel, ProductType, Product, Sale, Client, News, Faq, PartnerCompany
 from django.contrib.auth import login
@@ -43,10 +46,67 @@ def dictionary(request):
     return render(request, 'dictionary.html', {'faq_list': faq_list})
 
 
-def contacts(request):
-    employees = Employee.objects.all()
-    return render(request, 'contacts.html', {'employees': employees})
+from django.core.paginator import Paginator
 
+def contacts(request):
+    search_query = request.GET.get('search', '')
+    employees = Employee.objects.all()
+
+    if search_query:
+        employees = employees.filter(
+            Q(first_name__icontains=search_query) |
+            Q(last_name__icontains=search_query) |
+            Q(position__icontains=search_query) |
+            Q(contact_info__icontains=search_query) |
+            Q(email__icontains=search_query)
+        )
+
+    page = request.GET.get('page', 1)  # По умолчанию 1
+    try:
+        page = int(page)  # Преобразуем в целое число
+    except ValueError:
+        page = 1  # Если произошла ошибка, ставим на первую страницу
+
+    paginator = Paginator(employees, 3)  # 3 элемента на странице
+    try:
+        employees_page = paginator.get_page(page)  # Получаем страницу с сотрудниками
+    except EmptyPage:
+        employees_page = paginator.get_page(1)  # Если страница не существует, возвращаем первую
+
+    context = {
+        'employees': employees_page,
+        'search_query': search_query,
+    }
+
+    return render(request, 'contacts.html', context)
+
+
+@csrf_exempt
+def add_employee(request):
+    if request.method == 'POST':
+        # Получаем данные из запроса
+        import json
+        data = json.loads(request.body)
+
+        full_name = data.get('full_name')
+        photo_url = data.get('photo_url')
+        position = data.get('position')
+        phone = data.get('phone')
+        email = data.get('email')
+
+        # Создаем нового сотрудника в базе данных
+        employee = Employee(
+            full_name=full_name,
+            photo_url=photo_url,
+            position=position,
+            phone=phone,
+            email=email
+        )
+        employee.save()
+
+        return JsonResponse({'success': True})
+    else:
+        return JsonResponse({'success': False}, status=400)
 
 def privacy_policy(request):
     return render(request, 'privacy_policy.html')
@@ -337,3 +397,6 @@ def task(request):
 
 def animation(request):
     return render(request,'animation.html')
+
+def taskjs(request):
+    return render(request, 'taskjs.html')

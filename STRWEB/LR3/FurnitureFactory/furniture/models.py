@@ -58,6 +58,7 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     product_type = models.ForeignKey(ProductType, on_delete=models.CASCADE, null=True)
     product_model = models.ForeignKey(ProductModel, on_delete=models.CASCADE, null=True)
+    photo = models.ImageField(upload_to='product_photos/', null=True, blank=True)
 
     MAKE = (
         ('+', 'Производится'),

@@ -3,24 +3,89 @@
 {% block title %}Наши сотрудники{% endblock %}
 
 {% block content %}
-    <h1>Наши сотрудники</h1>
-    {% if employees %}
-        <div class="employee-list">
-            {% for employee in employees %}
-                <div class="employee-card">
-                    {% if employee.photo %}
-                        <img src="{{ employee.photo.url }}" alt="{{ employee.first_name }} {{ employee.last_name }}" class="employee-photo">
-                    {% endif %}
-                    <div class="employee-info">
-                        <h3>{{ employee.first_name }} {{ employee.last_name }}</h3>
-                        <p><strong>Должность:</strong> {{ employee.position }}</p>
-                        <p><strong>Контактная информация:</strong> {{ employee.contact_info }}</p>
-                        <p><strong>Email:</strong> {{ employee.email }}</p>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-    {% else %}
-        <p>На данный момент информация о сотрудниках отсутствует.</p>
+{% load static %}
+<h1>Наши сотрудники</h1>
+
+<!-- Форма фильтрации -->
+<div>
+    <input type="text" id="filterText" placeholder="Поиск" />
+    <button onclick="filterTable()">Найти</button>
+</div>
+
+<!-- Кнопка для добавления сотрудника -->
+<button onclick="openAddEmployeeForm()">Добавить сотрудника</button>
+
+<p id="noResultsMessage" style="display: none;"></p>
+
+<!-- Таблица сотрудников -->
+<table id="employeeTable">
+    <thead>
+    <tr>
+        <th onclick="sortTable(0)">ФИО <span class="sort-direction"></span></th>
+        <th onclick="sortTable(1)">Фото <span class="sort-direction"></span></th>
+        <th onclick="sortTable(2)">Должность <span class="sort-direction"></span></th>
+        <th onclick="sortTable(3)">Телефон <span class="sort-direction"></span></th>
+        <th onclick="sortTable(4)">Email <span class="sort-direction"></span></th>
+        <th>Выбрать</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for employee in employees %}
+    <tr class="employee-row">
+        <td>{{ employee.first_name }} {{ employee.last_name }}</td>
+        <td><img src="{{ employee.photo.url }}" alt="{{ employee.first_name }} {{ employee.last_name }}" class="employee-photo" /></td>
+        <td>{{ employee.position }}</td>
+        <td>{{ employee.contact_info }}</td>
+        <td>{{ employee.email }}</td>
+        <<td><input type="checkbox" class="employee-checkbox" value="{{ employee.id }}" data-name="{{ employee.first_name }} {{ employee.last_name }}" /></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+
+<!-- Навигация по страницам -->
+<div class="pagination">
+    {% if employees.has_previous %}
+    <button onclick="changePage('prev')">Предыдущая</button>
     {% endif %}
+    <span>Страница {{ employees.number }} из {{ employees.paginator.num_pages }}</span>
+    {% if employees.has_next %}
+    <button onclick="changePage('next')">Следующая</button>
+    {% endif %}
+</div>
+
+<button onclick="rewardSelected()">Премировать</button>
+
+<!-- Место для отображения текста премирования -->
+<div id="rewardMessage" style="display: none;">
+    <p id="rewardText"></p>
+</div>
+
+<!-- Блок с деталями выбранного сотрудника -->
+<div id="employeeDetails"></div>
+
+<!-- Форма добавления сотрудника (пока скрыта) -->
+<div id="addEmployeeForm" style="display: none;">
+    <form id="employeeForm">
+        <label>ФИО:</label>
+        <input type="text" name="full_name" required />
+        <label>Фото (URL):</label>
+        <input type="url" name="photo_url" required />
+        <label>Должность:</label>
+        <input type="text" name="position" required />
+        <label>Телефон:</label>
+        <input type="text" name="phone" required />
+        <label>Email:</label>
+        <input type="email" name="email" required />
+        <button type="submit">Добавить</button>
+    </form>
+</div>
+
+<!-- Прелоадер -->
+<div id="loader" style="display: none;">Загрузка...</div>
+
+{% endblock %}
+{% block scripts %}
+<script src="{% static 'js/employee.js' %}"></script>
 {% endblock %}

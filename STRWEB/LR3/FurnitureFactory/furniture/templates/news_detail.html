@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ news.title }}{% endblock %}
+
+{% block content %}
+    <h1>{{ news.title }}</h1>
+    <p>Опубликовано: {{ news.pub_date }}</p>
+    {% if news.image %}
+        <img src="{{ news.image.url }}" alt="{{ news.title }}">
+    {% endif %}
+    <!-- Применим многоколоночный макет для текста новости -->
+    <div class="news-content">
+        <p>{{ news.description }}</p> <!-- Здесь может быть основной текст новости -->
+    </div>
+
+    <p><a href="/news/">Назад к новостям</a></p>
+{% endblock %}
+

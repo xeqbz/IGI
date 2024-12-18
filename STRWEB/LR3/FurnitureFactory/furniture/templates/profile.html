@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Profile</h1>
+  {% if user.is_staff %}
+    <p>Welcome, employee!</p>
+    <a href="{% url 'employee_profile %}">Employee Dashboard</a>
+  {% else %}
+    <p>Welcome, user!</p>
+  {% endif %}
+{% endblock %}

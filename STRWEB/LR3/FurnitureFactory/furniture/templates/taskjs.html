@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %} Анализ студентов {% endblock %}
+
+{% block content %}
+{% load static %}
+<h1>Анализ студентов</h1>
+
+<form id="student-form">
+    <label for="last-name">Фамилия:</label>
+    <input type="text" id="last-name" maxlength="12" required>
+
+    <label for="first-name">Имя:</label>
+    <input type="text" id="first-name" maxlength="12" required>
+
+    <label for="middle-name">Отчество:</label>
+    <input type="text" id="middle-name" maxlength="12" required>
+
+    <label for="gender">Пол:</label>
+    <select id="gender">
+        <option value="М">М</option>
+        <option value="Ж">Ж</option>
+    </select>
+
+    <label for="age">Возраст:</label>
+    <input type="number" id="age" min="16" max="35" required>
+
+    <label for="course">Курс:</label>
+    <input type="number" id="course" min="1" max="5" required>
+
+    <button type="button" id="add-student">Добавить студента</button>
+</form>
+
+<hr>
+
+<h2>Список студентов (прототипное наследование)</h2>
+<div id="student-list-prototype"></div>
+
+<h2>Список студентов (Class/Extends)</h2>
+<div id="student-list-class"></div>
+
+<hr>
+
+<h2>Анализ результатов</h2>
+<div id="analysis-result"></div>
+{% endblock %}
+{% block scripts %}
+<script src="{% static 'js/students.js' %}"></script>
+{% endblock %}

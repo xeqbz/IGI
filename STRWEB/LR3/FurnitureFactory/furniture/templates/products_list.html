@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}Product List{% endblock %}
+
+{% block content %}
+<h1>Product List</h1>
+
+<!-- Форма для фильтрации и сортировки -->
+<form method="get" action="">
+    <label for="product_type">Тип продукта:</label>
+    <select name="product_type" id="product_type">
+        <option value="">Все</option>
+        {% for product_type in product_types %}
+        <option value="{{ product_type.id }}" {% if request.GET.product_type == product_type.id %}selected{% endif %}>{{ product_type.name }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="product_model">Модель продукта:</label>
+    <select name="product_model" id="product_model">
+        <option value="">Все</option>
+        {% for product_model in product_models %}
+        <option value="{{ product_model.id }}" {% if request.GET.product_model == product_model.id %}selected{% endif %}>{{ product_model.name }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="sort">Сортировка:</label>
+    <select name="sort" id="sort">
+        <option value="">Без сортировки</option>
+        <option value="price_asc" {% if request.GET.sort == 'price_asc' %}selected{% endif %}>Цена: Меньшая к Большей</option>
+        <option value="price_desc" {% if request.GET.sort == 'price_desc' %}selected{% endif %}>Цена: Большая к Меньшей</option>
+    </select>
+
+    <button type="submit">Отсортировать</button>
+</form>
+
+<!-- Список продуктов -->
+<div id="product-list">
+    {% for product in products %}
+    <div class="product-item">
+        <h2>{{ product.name }}</h2>
+        <img src="{{ product.photo.url }}" alt="{{ product.name }}" class="product-image">
+        <p>Price: {{ product.price }}</p>
+        {% if user.is_authenticated %}
+        <form action="" method="post" style="display:inline;">
+            {% csrf_token %}
+            <input type="hidden" name="product_code" value="{{ product.product_code }}">
+            <button type="submit">Купить</button>
+        </form>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+
+<!-- Пагинация -->
+<div id="pagination" class="pagination"></div>
+
+{% endblock %}
+
